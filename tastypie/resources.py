@@ -2,8 +2,6 @@ from __future__ import with_statement
 import logging
 import warnings
 import django
-from django.conf import settings
-from django.conf.urls.defaults import patterns, url
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned, ValidationError
 from django.core.urlresolvers import NoReverseMatch, reverse, resolve, Resolver404, get_script_prefix
 from django.db import transaction
@@ -46,6 +44,12 @@ try:
     from django.db.models.constants import LOOKUP_SEP
 except ImportError:
     from django.db.models.sql.constants import LOOKUP_SEP
+
+# Deprecated since 1.4, the correct pattern is below
+if float("%d.%d"%(django.VERSION[0],django.VERSION[1])) <= 1.5:
+    from django.conf.urls.defaults import patterns,url
+else:
+    from django.conf.urls import patterns,url
 
 
 class NOT_AVAILABLE:

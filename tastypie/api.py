@@ -1,5 +1,4 @@
 import warnings
-from django.conf.urls.defaults import *
 from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
@@ -7,6 +6,12 @@ from tastypie.exceptions import NotRegistered, BadRequest
 from tastypie.serializers import Serializer
 from tastypie.utils import trailing_slash, is_valid_jsonp_callback_value
 from tastypie.utils.mime import determine_format, build_content_type
+
+# Deprecated since 1.4, the correct pattern is below
+if float("%d.%d"%(django.VERSION[0],django.VERSION[1])) <= 1.5:
+    from django.conf.urls.defaults import *
+else:
+    from django.conf.urls import *
 
 
 class Api(object):
